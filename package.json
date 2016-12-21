@@ -1,0 +1,14 @@
+{
+  "name": "tcp-test",
+  "version": "1.0.0",
+  "description": "udp client",
+  "main": "TCPclient.js",
+  "scripts": {
+    "start": "node TCPclient"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "net": "^1.0.2"
+  }
+}

@@ -15,9 +15,9 @@ server.on('connection', function(sock) {
     sock.on('data', function(data) {
         console.log('DATA ' + sock.remoteAddress + ': ' + data);
         // 回发监测数据
-		var deflectionvalue1 = 1234.111;
+		var deflectionvalue1 = 100;
 		var deflectionvalue2 = 2345.111;
-		var strainvalue1 = 1234.111;
+		var strainvalue1 = 600;
 		var strainvalue2 = 2345.111;
 		var sensortype = (data.slice(5,7)).toString();
 		
@@ -30,7 +30,7 @@ server.on('connection', function(sock) {
 		}
 		else if (sensortype === '04')
 		{
-			deflectionvalue1 += Math.random() - 0.5;
+			strainvalue1 += Math.random() - 0.5;
 			var msgContext1 =  new Buffer ((strainvalue1.toString()), 'ascii');
 			var msgContext2 =  new Buffer ((strainvalue1.toString()), 'ascii');
 		}

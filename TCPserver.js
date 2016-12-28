@@ -15,32 +15,37 @@ server.on('connection', function(sock) {
     sock.on('data', function(data) {
         console.log('DATA ' + sock.remoteAddress + ': ' + data);
         // 回发监测数据
-		var deflectionvalue1 = 100;
-		var deflectionvalue2 = 2345.111;
-		var strainvalue1 = 600;
-		var strainvalue2 = 2345.111;
-		var sensortype = (data.slice(5,7)).toString();
-		
-		if (sensortype === '02')
+		for (let i = 0;i <=data.length;i++ )
 		{
-			console.log(111111);
-			deflectionvalue1 += Math.random() - 0.5;
-			var msgContext1 =  new Buffer ((deflectionvalue1.toString()), 'ascii');
-			var msgContext2 =  new Buffer ((deflectionvalue2.toString()), 'ascii');
+			if (data[i] == 58 ){
+				let msg = data.slice(i, i+11);
+				var deflectionvalue1 = 1234.111;
+				var deflectionvalue2 = 2345.111;
+				var strainvalue1 = 1234.111;
+				var strainvalue2 = 2345.111;
+				var sensortype = (msg.slice(5,7)).toString();
+				
+				if (sensortype === '02')
+				{
+					deflectionvalue1 += Math.random() - 0.5;
+					var msgContext1 =  new Buffer ((deflectionvalue1.toString()), 'ascii');
+					var msgContext2 =  new Buffer ((deflectionvalue2.toString()), 'ascii');
+				}
+				else if (sensortype === '04')
+				{
+					deflectionvalue1 += Math.random() - 0.5;
+					var msgContext1 =  new Buffer ((strainvalue1.toString()), 'ascii');
+					var msgContext2 =  new Buffer ((strainvalue1.toString()), 'ascii');
+				}
+				
+				var msgHeader =  msg.slice(0,9);
+				var msgEnd = new Buffer ([0x45,0x44,0x0d,0x0a]);
+				var list =  [msgHeader,msgContext1,msgContext2,msgEnd ];
+				var msgset = Buffer.concat(list);
+				sock.write(msgset);
+			}
 		}
-		else if (sensortype === '04')
-		{
-			strainvalue1 += Math.random() - 0.5;
-			var msgContext1 =  new Buffer ((strainvalue1.toString()), 'ascii');
-			var msgContext2 =  new Buffer ((strainvalue1.toString()), 'ascii');
-		}
-		
-		var msgHeader =  data.slice(0,9);
-		var msgEnd = new Buffer ([0x45,0x44,0x0d,0x0a]);
-		var list =  [msgHeader,msgContext1,msgContext2,msgEnd ];
-		var msg = Buffer.concat(list);
 
-        sock.write(msg);
     });
 
     // 为这个socket实例添加一个"close"事件处理函数

@@ -33,7 +33,7 @@ server.on('connection', function(sock) {
 				}
 				else if (sensortype === '04')
 				{
-					deflectionvalue1 += Math.random() - 0.5;
+					strainvalue1 += Math.random() - 0.5;
 					var msgContext1 =  new Buffer ((strainvalue1.toString()), 'ascii');
 					var msgContext2 =  new Buffer ((strainvalue1.toString()), 'ascii');
 				}

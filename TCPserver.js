@@ -19,8 +19,8 @@ server.on('connection', function(sock) {
 		{
 			if (data[i] == 58 ){
 				let msg = data.slice(i, i+11);
-				var deflectionvalue1 = 1234.111;
-				var deflectionvalue2 = 2345.111;
+				var deflectionvalue1 = 14.111;
+				var deflectionvalue2 = 345.111;
 				var strainvalue1 = 1234.111;
 				var strainvalue2 = 2345.111;
 				var sensortype = (msg.slice(5,7)).toString();

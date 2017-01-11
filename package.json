@@ -2,9 +2,9 @@
   "name": "tcp-test",
   "version": "1.0.0",
   "description": "udp client",
-  "main": "TCPclient.js",
+  "main": "TCPserver.js",
   "scripts": {
-    "start": "node TCPclient"
+    "start": "node TCPserver"
   },
   "author": "",
   "license": "ISC",

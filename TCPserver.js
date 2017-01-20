@@ -19,21 +19,34 @@ server.on('connection', function(sock) {
 		{
 			if (data[i] == 58 ){
 				let msg = data.slice(i, i+11);
-				var deflectionvalue1 = 14.111;
+				var deflectionvalue1 = 550.63;
 				var deflectionvalue2 = 345.111;
-				var strainvalue1 = 1234.111;
+				var strainvalue1 = 1300;
 				var strainvalue2 = 2345.111;
 				var sensortype = (msg.slice(5,7)).toString();
 				
 				if (sensortype === '02')
 				{
-					deflectionvalue1 += Math.random() - 0.5;
+					deflectionvalue1 += (Math.random()*5- 2.5);
+					deflectionvalue1 = deflectionvalue1.toFixed(2);
+					if (deflectionvalue1 > 565){
+						deflectionvalue1 = 552;
+					}else if (deflectionvalue1 < 548.8)
+					{
+						deflectionvalue1 = 549;
+					}					
 					var msgContext1 =  new Buffer ((deflectionvalue1.toString()), 'ascii');
 					var msgContext2 =  new Buffer ((deflectionvalue2.toString()), 'ascii');
 				}
 				else if (sensortype === '04')
 				{
-					strainvalue1 += Math.random() - 0.5;
+					strainvalue1 += Math.random()*100 - 50;
+					if (strainvalue1 > 1400){
+						strainvalue1 = 1387;
+					}else if (strainvalue1 < 1250)
+					{
+						strainvalue1 = 1280;
+					}
 					var msgContext1 =  new Buffer ((strainvalue1.toString()), 'ascii');
 					var msgContext2 =  new Buffer ((strainvalue1.toString()), 'ascii');
 				}
